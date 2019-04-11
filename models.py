@@ -1,5 +1,18 @@
 import tensorflow as tf
 
+class Model(object):
+  def __init__(self, net_constructor, lr, decay, epochs):
+    self._net_constructor = net_constructor
+    self.lr = lr
+    self.decay = decay
+    self.epochs = epochs
+    self._net = None
+
+  def get_net(self, sess, resolution, train_mass, train_spill):
+  	if self._net is None:
+  		self._net = self._net_constructor(sess, resolution, lr=self.lr, decay=self.decay, train_mass=train_mass, train_spill=train_spill)
+  	return self._net
+
 class CNN(object):
 	scope = 'critic'
 
